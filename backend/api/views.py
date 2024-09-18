@@ -22,8 +22,9 @@ class BlogPostRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     lookup_flield = 'pk'
 
 @api_view(['GET'])
-def get_blog(request):
-    return Response(BlogPostSerializer(BlogPost.objects.first()).data)
+def get_blog(request, pk):
+    queryset = BlogPost.objects.get(pk=pk)
+    return Response(BlogPostSerializer(queryset).data)
 
 @api_view(['POST'])
 def post_blog(request):

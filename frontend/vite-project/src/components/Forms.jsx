@@ -6,37 +6,23 @@ function BlogForm(props) {
     content: "",
   });
 
-  function handleChange(event) {
-    const { name, value } = event.target;
-
-    setBlog((prevBlog) => {
-      return { ...prevBlog, [name]: value };
-    });
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    console.log(blog);
-
-    props.postApi(blog);
-  }
-
   return (
-    <form className="blog-form" onSubmit={handleSubmit}>
+    <form className="blog-form" onSubmit={(e) => props.handleSubmit(e, blog, true)}>
       <label htmlFor="title">Title</label>
       <input
         className="blog-form--title"
         type="text"
         name="title"
+        id="title"
         value={blog.title}
-        onChange={handleChange}
+        onChange={(e) => props.handleChange(e, setBlog)}
       />
       <label htmlFor="content">Content</label>
       <textarea
         className="blog-form--content"
         name="content"
-        onChange={handleChange}
+        id="content"
+        onChange={(e) => props.handleChange(e, setBlog)}
         value={blog.content}
       />
       <button className="blog-form--button">Submit</button>
@@ -50,8 +36,17 @@ function RequestForm(props) {
   });
 
   return (
-    <form action={props.handleSubmit}>
-      <input type="text" value={request.id} onChange={handleChange} />
+    <form className="request-form" onSubmit={(e) => props.handleSubmit(e, request, false)}>
+      <label htmlFor="id">Lookup ID</label>
+      <br/>
+      <input
+        type="number"
+        name="id"
+        value={request.id}
+        id="id"
+        onChange={(e) => props.handleChange(e, setRequest)}
+      />
+      <button>Submit</button>
     </form>
   );
 }
