@@ -1,42 +1,40 @@
-import { useState, useEffect } from 'react'
-import Form from './Form'
+import { useState, useEffect } from "react";
+import { BlogForm, RequestForm } from "./Forms";
 
 function App() {
-  const [blog, setBlog] = useState()
+  const [blog, setBlog] = useState();
+
 
   async function getApi() {
-
-    const res = await fetch('http://127.0.0.1:8000/api/test_get')
-    const data = await res.json()
-    setBlog(data);
+    const res = await fetch("http://127.0.0.1:8000/api/test_get");
+    const data = await res.json();
+    // setBlog(data);
   }
+
+
   async function postApi(formData) {
-
-    const res = await fetch('http://127.0.0.1:8000/api/test_post', {
-      method: 'POST',
+    const res = await fetch("http://127.0.0.1:8000/api/test_post", {
+      method: "POST",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData)
+      body: JSON.stringify(formData),
     });
-    const content = await res.json()
-    
+    const content = await res.json();
+    setBlog(content);
   }
-
-  useEffect(() => {
-    getApi()
-  }, []);
-
-
 
   return (
-    <div>
-      <h1>Hello</h1>
-      <Form postApi={postApi}/>
-      {blog && <p>{blog.content}</p>}
-    </div>
-  )
+    <main>
+      <h1 className="main--heading">API TESTING APP IN REACT</h1>
+      <div className="forms">
+        <BlogForm postApi={postApi} />
+        <RequestForm getApi={getApi} />
+        {blog && <p>Response: {blog.content}</p>}
+      </div>
+    </main>
+  );
 }
 
-export default App
+export default App;
