@@ -1,34 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react'
+import Form from './Form'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [blog, setBlog] = useState()
+
+  async function getApi() {
+
+    const res = await fetch('http://127.0.0.1:8000/api/test_get')
+    const data = await res.json()
+    setBlog(data);
+  }
+  async function postApi(formData) {
+
+    const res = await fetch('http://127.0.0.1:8000/api/test_post', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    });
+    const content = await res.json()
+    
+  }
+
+  useEffect(() => {
+    getApi()
+  }, []);
+
+
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <h1>Hello</h1>
+      <Form postApi={postApi}/>
+      {blog && <p>{blog.content}</p>}
+    </div>
   )
 }
 
