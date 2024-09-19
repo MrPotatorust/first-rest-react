@@ -1,57 +1,64 @@
-body{
-    background: #2d2d2d;
-    color: white;
+body {
+  background: #2d2d2d;
+  color: white;
 }
 
 .api {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.blog {
+  margin-bottom: 50px;
+  text-align: center;
+}
+.load-more{
     display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-.api--heading{
-    color: white;
-    text-align: center;
+.api--heading {
+  color: white;
+  text-align: center;
 }
 
-.blog-form{
-    display: grid;
-    grid-template-columns: 100px 100px 100px;
+.blog-form {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
 }
 
-.blog-form--title{
-    grid-column: 1 / span 3;
-    border-radius: 5px;
+.blog-form--title {
+  grid-column: 1 / span 3;
+  border-radius: 5px;
 }
 
-.blog-form--content{
-    grid-column: 1 / span 3;
-    height: 200px;
-    border-radius: 5px;
+.blog-form--content {
+  grid-column: 1 / span 3;
+  height: 200px;
+  border-radius: 5px;
 }
 
-.blog-form--button{
-    grid-column: 2;
-    border-radius: 5px;
-    margin-top: 20px;
+.blog-form--button {
+  grid-column: 2;
+  border-radius: 5px;
+  margin-top: 20px;
 }
 
-.request-form{
-    display: grid;
-    margin: 10px;
+.request-form {
+  display: grid;
+  margin: 10px;
 }
-.request-form > button{
-    grid-column: 2;
-}
-
-.nav--list{
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    flex-direction: row;
+.request-form > button {
+  grid-column: 2;
 }
 
-.nav--heading > a{
-    text-decoration: none;
-    color: white;
+.nav--list {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+}
+
+.nav--heading > a {
+  text-decoration: none;
+  color: white;
 }
