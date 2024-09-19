@@ -33,3 +33,8 @@ def post_blog(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def get_blogs(request, start, end):
+    queryset = BlogPost.objects.all()[start:end]
+    return Response(BlogPostSerializer(queryset, many=True).data)

@@ -37,7 +37,7 @@ function RequestForm(props) {
 
   return (
     <form className="request-form" onSubmit={(e) => props.handleSubmit(e, request, false)}>
-      <label htmlFor="id">Lookup ID</label>
+      <label htmlFor="id">Lookup By ID</label>
       <br/>
       <input
         type="number"

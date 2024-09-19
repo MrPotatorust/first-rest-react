@@ -6,4 +6,5 @@ urlpatterns = [
     path("blogposts/<int:pk>/", views.BlogPostRetrieveUpdateDestroy.as_view(), name="blogposts-view-retrieve-update-destroy"),
     path('test_get/<int:pk>/', views.get_blog, name='test_get'),
     path('test_post', views.post_blog, name='test_post'),
+    path('get_blogs/<int:start>/<int:end>', views.get_blogs, name='get_blogs'),
 ]
