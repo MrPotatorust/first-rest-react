@@ -1,31 +1,10 @@
 import { useState, useEffect } from "react";
 import { BlogForm, RequestForm } from "../components/Forms";
+import {getApi, postApi} from "../apiCalls";
 
 function App() {
   const [blog, setBlog] = useState();
 
-  async function getApi(id) {
-    try {
-      const res = await fetch(`http://127.0.0.1:8000/api/test_get/${id}/`);
-      const data = await res.json();
-      setBlog(data);
-    } catch (error){
-      setBlog("invalid id (probably doesnt exist)")
-    }
-  }
-
-  async function postApi(formData) {
-    const res = await fetch("http://127.0.0.1:8000/api/test_post", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-    const data = await res.json();
-    setBlog(data);
-  }
 
   function handleChange(event, setFunction) {
     const { name, value } = event.target;
@@ -38,11 +17,16 @@ function App() {
   function handleSubmit(event, submitState, post) {
     event.preventDefault();
 
-    if (post === true) {
-      postApi(submitState);
-    } else {
-      getApi(submitState.id);
+    async function promiseResolution(func, state) {
+      setBlog(await func(state))
     }
+
+    if (post === true) {
+      promiseResolution(postApi, submitState);
+    } else {
+      promiseResolution(getApi, submitState.id);
+    }
+
   }
 
   return (

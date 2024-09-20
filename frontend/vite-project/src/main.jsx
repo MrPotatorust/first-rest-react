@@ -5,6 +5,7 @@ import Root from "./routes/root.jsx";
 import ErrorPage from "./error-page.jsx";
 import HomePage from "./routes/HomePage.jsx";
 import Blogs from "./routes/Blogs.jsx";
+import Blog, { loader as blogLoader } from "./routes/Blog.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 
@@ -15,17 +16,22 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/",
+        path: "",
         element:<HomePage />,
       },
       {
-        path: "/api",
+        path: "api",
         element: <Api />,
       },
       {
-        path: "/blogs",
+        path: "blogs",
         element: <Blogs />,
-      }
+      },
+      {
+        path: "blogs/blog/:blogId",
+        element: <Blog />,
+        loader: blogLoader,
+      },
     ],
   },
 ]);

@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { getBlogs } from "../apiCalls"
+import { Link } from "react-router-dom";
 
 function Blogs() {
 
@@ -6,32 +8,32 @@ function Blogs() {
     const [blogLen, setBlogLen] = useState(10);
   
     useEffect(() => {
-      getBlogs(0, blogLen);
+        async function promiseResolution(){
+            setBlogs(await getBlogs(0, blogLen));
+        }
+        promiseResolution()
     }, [blogLen]);
-  
-    async function getBlogs(start, end) {
-      try {
-        const res = await fetch(`http://127.0.0.1:8000/api/get_blogs/${start}/${end}`);
-        const data = await res.json();
-        setBlogs(data);
-      } catch (error) {
-        console.error("Error fetching blogs:", error);
-      }
-    }
+
+
+
+
+    const mappedBlogs = blogs.map((blog) => (
+        <div key={blog.id} className="blog">
+          <h2><Link to={`blog/${blog.id}`}>{blog.title}</Link></h2>
+          <p>{blog.content}</p>
+          <small>{blog.published_date}</small>
+        </div>
+      ))
   
     return (
       <>
         <h1>Blogs</h1>
-        {blogs.map((blog) => (
-          <div key={blog.id} className="blog">
-            <h2>{blog.title}</h2>
-            <p>{blog.content}</p>
-            <small>{blog.published_date}</small>
-          </div>
-        ))}
+        {mappedBlogs}
+        {mappedBlogs.length >= blogLen && 
         <button className="load-more"
           onClick={() => setBlogLen(blogLen + 10)}
           >Load More</button>
+        }
       </>
     );
   };
